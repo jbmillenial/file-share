@@ -1,0 +1,18 @@
+<!-- uploads/templates/uploads/link_expired.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 80px auto; text-align: center;">
+    <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 40px;">
+        <div style="font-size: 4em; margin-bottom: 20px;">⚠️</div>
+        <h1 style="color: #856404; margin-bottom: 20px;">Link Expired</h1>
+        <p style="font-size: 1.1em; color: #856404; margin-bottom: 30px;">
+            The file <strong>{{ filename }}</strong> has expired and is no longer available for download.
+        </p>
+        <a href="{% url 'home' %}" style="background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+            Go to Homepage
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!-- uploads/templates/uploads/link_invalid.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 80px auto; text-align: center;">
+    <div style="background: #f8d7da; border: 2px solid #dc3545; border-radius: 10px; padding: 40px;">
+        <div style="font-size: 4em; margin-bottom: 20px;">❌</div>
+        <h1 style="color: #721c24; margin-bottom: 20px;">Invalid Link</h1>
+        <p style="font-size: 1.1em; color: #721c24; margin-bottom: 30px;">
+            This download link is invalid or the file has been deleted.
+        </p>
+        <a href="{% url 'home' %}" style="background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+            Go to Homepage
+        </a>
+    </div>
+</div>
+{% endblock %}

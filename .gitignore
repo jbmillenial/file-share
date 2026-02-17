@@ -1,0 +1,122 @@
+# ==============================================
+# Django File Upload App - Git Ignore Rules
+# ==============================================
+
+# Python
+*.py[cod]
+*$py.class
+*.so
+.Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv
+venv.bak/
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+/static_root
+
+# Environment Variables (CRITICAL - DON'T COMMIT!)
+.env
+.env.local
+.env.production
+.env.*.local
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mkdocs
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# AWS
+*.pem
+*.ppk
+
+# Backup files
+*.bak
+*.backup
+*.tmp

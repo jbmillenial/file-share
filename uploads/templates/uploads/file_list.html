@@ -1,0 +1,128 @@
+<!-- uploads/templates/uploads/file_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>My Files</h1>
+
+<!-- Show messages -->
+{% if messages %}
+    {% for message in messages %}
+    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Active Files -->
+<h2>Active Files</h2>
+{% if active_files %}
+<table>
+    <thead>
+        <tr>
+            <th>Filename</th>
+            <th>Size</th>
+            <th>Uploaded</th>
+            <th>Expires</th>
+            <th>Share Link</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for file in active_files %}
+        <tr>
+            <td>{{ file.original_filename }}</td>
+            <td>{{ file.size_in_mb }} MB</td>
+            <td>{{ file.uploaded_at|date:"M d, Y H:i" }}</td>
+            <td>
+                {% if file.expires_at %}
+                    {{ file.expires_at|date:"M d, Y" }}
+                {% else %}
+                    Never
+                {% endif %}
+            </td>
+            <td>
+                <div style="display: flex; gap: 5px; align-items: center;">
+                    <input 
+                        type="text" 
+                        value="{{ request.scheme }}://{{ request.get_host }}{{ file.get_share_url }}" 
+                        id="share-link-{{ file.id }}"
+                        style="width: 280px; padding: 5px; border: 1px solid #ddd; border-radius: 3px; font-size: 0.9em;"
+                        readonly
+                    >
+                    <button 
+                        onclick="copyShareLink({{ file.id }})"
+                        style="padding: 5px 15px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer; white-space: nowrap;"
+                    >
+                        Copy
+                    </button>
+                </div>
+            </td>
+            <td>
+                <a href="{{ file.file.url }}" download>Download</a> |
+                <a href="{% url 'delete_file' file.id %}" 
+                   onclick="return confirm('Delete {{ file.original_filename }}?')">
+                   Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>You haven't uploaded any files yet.</p>
+{% endif %}
+
+<!-- Expired Files -->
+{% if expired_files %}
+<h2>Expired Files</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Filename</th>
+            <th>Expired On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for file in expired_files %}
+        <tr style="background-color: #ffebee;">
+            <td>{{ file.original_filename }}</td>
+            <td>{{ file.expires_at|date:"M d, Y" }}</td>
+            <td>
+                <a href="{% url 'delete_file' file.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<p><a href="/upload/">Upload New File</a></p>
+
+<script>
+function copyShareLink(fileId) {
+    const input = document.getElementById(`share-link-${fileId}`);
+    input.select();
+    input.setSelectionRange(0, 99999); // For mobile devices
+    
+    navigator.clipboard.writeText(input.value).then(() => {
+        // Show success feedback
+        const button = event.target;
+        const originalText = button.textContent;
+        const originalBg = button.style.backgroundColor;
+        
+        button.textContent = 'Copied!';
+        button.style.backgroundColor = '#6c757d';
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.backgroundColor = originalBg;
+        }, 2000);
+    }).catch(err => {
+        //alert('Failed to copy link. Please copy manually.');
+        console.error('Copy failed:', err);
+    });
+}
+</script>
+{% endblock %}
